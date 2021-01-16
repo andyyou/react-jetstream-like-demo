@@ -56,7 +56,7 @@ const AppLayout = ({ children }) => {
                     </a>
                     <ul className="dropdown-menu dropdown-menu-end" aria-labelledby="user-menu">
                       <li><h6 className="dropdown-header">Manage Account</h6></li>
-                      <li><InertiaLink className="dropdown-item" href="#">Profile</InertiaLink></li>
+                      <li><InertiaLink className="dropdown-item" href={route('profile.show')}>Profile</InertiaLink></li>
                       <li><InertiaLink className="dropdown-item" href="#">API Token</InertiaLink></li>
                       <li><hr className="dropdown-divider" /></li>
                       <li><h6 className="dropdown-header">Manage Team</h6></li>

@@ -2,6 +2,10 @@
 
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use App\Http\Controllers\UserProfileController;
+use App\Http\Controllers\OtherBrowserSessionsController;
+use App\Http\Controllers\CurrentUserController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -21,4 +25,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard', function (Request $request) {
         return Inertia::render('Dashboard');
     })->name('dashboard');
+
+    Route::get('/user/profile', [UserProfileController::class, 'show'])
+        ->name('profile.show');
+    Route::delete('/user/other-browser-sessions', [OtherBrowserSessionsController::class, 'destroy'])
+        ->name('other-browser-sessions.destroy');
+    Route::delete('/user', [CurrentUserController::class, 'destroy'])
+        ->name('current-user.destroy');
 });
