@@ -14,8 +14,11 @@ use Inertia\Inertia;
 */
 
 Route::get('/', function () {
-    return Inertia::render('Welcome');
+    return view('welcome');
 })->name('home');
-Route::get('/dummy', function () {
-    return Inertia::render('Dummy');
-})->name('dummy');
+
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/dashboard', function (Request $request) {
+        return Inertia::render('Dashboard');
+    })->name('dashboard');
+});
