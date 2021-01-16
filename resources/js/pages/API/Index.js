@@ -267,7 +267,7 @@ const Index = () => {
                   </div>
                 </form>
               </div>
-              <div className="card-footer text-right">
+              <div className="card-footer text-end">
                 {isApiTokenCreated && (
                   <FlashMessage
                     duration={2}

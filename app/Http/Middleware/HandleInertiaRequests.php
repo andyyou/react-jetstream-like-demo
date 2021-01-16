@@ -43,12 +43,15 @@ class HandleInertiaRequests extends Middleware
                     return;
                 }
     
-                return array_merge(
-                  $request->user()->toArray(),
-                  [
+                if ($request->user()) {
+                    $request->user()->currentTeam;
+                }
+    
+                return array_merge($request->user()->toArray(), array_filter([
+                    'all_teams' => $request->user()->allTeams() ?? null,
+                ]), [
                     'two_factor_enabled' => ! is_null($request->user()->two_factor_secret),
-                  ]
-                );
+                ]);
             },
             '_token' => function () {
                 return Session::token();
