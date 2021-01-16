@@ -10,9 +10,17 @@
         "production": "mix --production"
     },
     "devDependencies": {
+        "@babel/preset-react": "^7.12.10",
         "axios": "^0.21",
         "laravel-mix": "^6.0.6",
         "lodash": "^4.17.19",
         "postcss": "^8.1.14"
+    },
+    "dependencies": {
+        "@inertiajs/inertia": "^0.8.2",
+        "@inertiajs/inertia-react": "^0.5.1",
+        "@inertiajs/progress": "^0.2.4",
+        "react": "^17.0.1",
+        "react-dom": "^17.0.1"
     }
 }
