@@ -76,7 +76,6 @@ class User extends Authenticatable implements MustVerifyEmail
         if (is_null($this->current_team_id) && $this->id) {
             $this->switchTeam($this->personalTeam());
         }
-
         return $this->belongsTo(Team::class, 'current_team_id');
     }
 
@@ -91,6 +90,8 @@ class User extends Authenticatable implements MustVerifyEmail
         ])->save();
 
         $this->setRelation('currentTeam', $team);
+
+        return true;
     }
 
     public function allTeams()
