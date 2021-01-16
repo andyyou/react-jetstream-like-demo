@@ -5,6 +5,7 @@ use Inertia\Inertia;
 use App\Http\Controllers\UserProfileController;
 use App\Http\Controllers\OtherBrowserSessionsController;
 use App\Http\Controllers\CurrentUserController;
+use App\Http\Controllers\ApiTokenController;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,4 +33,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
         ->name('other-browser-sessions.destroy');
     Route::delete('/user', [CurrentUserController::class, 'destroy'])
         ->name('current-user.destroy');
+
+    Route::get('/user/api-tokens', [ApiTokenController::class, 'index'])->name('api-tokens.index');
+    Route::post('/user/api-tokens', [ApiTokenController::class, 'store'])->name('api-tokens.store');
+    Route::put('/user/api-tokens/{token}', [ApiTokenController::class, 'update'])->name('api-tokens.update');
+    Route::delete('/user/api-tokens/{token}', [ApiTokenController::class, 'destroy'])->name('api-tokens.destroy');
 });
