@@ -36,7 +36,6 @@ The biggest difference is using React and Bootstrap here.
       - [Delete Account](#delete-account)
     + [Laravel Sanctum with API Tokens](#laravel-sanctum-with-api-tokens)
     + [Teams & Roles](#teams---roles)
-  * [Source Code](#source-code)
 
 > If you are an experienced developer and want to check out code directly. Please feel free to visit [Github](https://github.com/andyyou/react-jetstream-like-demo). I split steps into the different commits. Hope it can help you.
 
@@ -1583,7 +1582,7 @@ The steps are:
 
 When user wants to enable two factor authentication, he/she should confirms password. And we should check status with
 
-```
+```http
 GET /user/confirmed-password-status
 
 // Route Helper
@@ -1592,7 +1591,7 @@ route('password.confirmation')
 
 Provide password to confirm with
 
-```
+```http
 POST /user/confirm-password
 {
   password: 'YOUR_PASSWORD',
@@ -1604,25 +1603,25 @@ route('password.confirm')
 
 Enable two factor authentication with 
 
-```
+```http
 POST /user/two-factor-authentication
 ```
 
 Retrieve QR Code with
 
-```
+```http
 GET /user/two-factor-qr-code
 ```
 
 Get recovery codes
 
-```
+```http
 GET /user/two-factor-recovery-codes
 ```
 
 Regenerate recovery codes
 
-```
+```http
 POST /user/two-factor-recovery-codes
 ```
 
@@ -1636,6 +1635,7 @@ import { useForm } from 'react-hook-form';
 import Modal from '@/components/Modal';
 
 const ConfirmsPassword = ({
+  id,
   children,
   onConfirmed,
 }) => {
@@ -1705,13 +1705,13 @@ const ConfirmsPassword = ({
         footer={(
           <>
             <button type="button" className="btn btn-sm btn-secondary" onClick={handleActive(false)}>Nevermind</button>
-            <button type="submit" className="btn btn-sm btn-primary" form="confirms-password-form">Confirm</button>
+            <button type="submit" className="btn btn-sm btn-primary" form={`${id}-confirms-password-form`}>Confirm</button>
           </>
         )}
       >
         <>
           <div>For your security, please confirm your password to continue.</div>
-          <form id="confirms-password-form" onSubmit={handleSubmit(submit)} noValidate="">
+          <form id={`${id}-confirms-password-form`} onSubmit={handleSubmit(submit)} noValidate="">
             <div className="mb-3">
               <label htmlFor="password" className={['form-label', errors.password ? 'is-invalid' : ''].join(' ')}>New Password</label>
               <input type="password" className="form-control" id="password" name="password" ref={register} />
@@ -1731,7 +1731,8 @@ const ConfirmsPassword = ({
 export default ConfirmsPassword;
 ```
 
-And our two factor authentication component
+Our two factor authentication component
+
 ```js
 // resources/js/pages/Profile/TwoFactorAuthenticationForm.js
 import React, { useReducer } from 'react';
@@ -1853,22 +1854,22 @@ const TwoFactorAuthenticationForm = ({
                   )}
 
                   {recoveryCodes.length > 0 ? (
-                    <ConfirmsPassword onConfirmed={handleRegenerateRecoveryCodes}>
+                    <ConfirmsPassword id="regenerate-recorvery-codes" onConfirmed={handleRegenerateRecoveryCodes}>
                       <button className="btn btn-sm btn-light me-2">Regenerate Recovery Codes</button>
                     </ConfirmsPassword>
                   ) : (
-                    <ConfirmsPassword onConfirmed={handleShowRecoveryCodes}>
+                    <ConfirmsPassword id="show-recorvery-codes" onConfirmed={handleShowRecoveryCodes}>
                       <button className="btn btn-sm btn-light me-2">Show Recovery Codes</button>
                     </ConfirmsPassword>
                   )}
 
-                  <ConfirmsPassword onConfirmed={handleDisableTwoFactorAuthentication}>
+                  <ConfirmsPassword id="disable-two-factor-authentication" onConfirmed={handleDisableTwoFactorAuthentication}>
                     <button className="btn btn-sm btn-danger">Disable</button>
                   </ConfirmsPassword>
                 </>
               ) : (
                 <>
-                  <ConfirmsPassword onConfirmed={handleEnableTwoFactorAuthentication}>
+                  <ConfirmsPassword id="enable-two-factor-authentication" onConfirmed={handleEnableTwoFactorAuthentication}>
                     <button className="btn btn-sm btn-dark">Enable</button>
                   </ConfirmsPassword>
                 </>
@@ -1882,6 +1883,87 @@ const TwoFactorAuthenticationForm = ({
 };
 
 export default TwoFactorAuthenticationForm;
+```
+
+`Fortify::twoFactorChallengeView`
+
+```jsx
+// resources/js/pages/Auth/TwoFactorAuthentication.js
+import React, { useState, useCallback } from 'react';
+import { Inertia } from '@inertiajs/inertia';
+import { useForm } from 'react-hook-form';
+
+import AppLayout from '@/layouts/AppLayout';
+
+
+const TwoFactorAuthentication = () => {
+  const {
+    register,
+    handleSubmit,
+  } = useForm();
+
+  const [isRecovery, setIsRecovery] = useState(false);
+
+  const submit = (data) => {
+    Inertia.post(route('two-factor.login'), {
+      ...data,
+    }, {
+      preserveState: false,
+    });
+  };
+
+  const handleToggleRecovery = (e) => {
+    e.preventDefault();
+    setIsRecovery(isRecovery => !isRecovery);
+  };
+
+  return (
+    <div className="mx-auto" style={{ maxWidth: 440, marginTop: 40 }}>
+      <div className="card">
+        <div className="card-body">
+          <h5 className="card-title">Two Factor Authentication</h5>
+          <hr />
+
+          {isRecovery ? (
+            <p>
+              Please confirm access to your account by entering one of your emergency recovery codes.
+            </p>
+          ) : (
+            <p>
+              Please confirm access to your account by entering the authentication code provided by your authenticator application.
+            </p>
+          )}
+
+          <form onSubmit={handleSubmit(submit)}>
+            {!isRecovery ? (
+              <div className="mb-3">
+                <label htmlFor="code" className="form-label">Code</label>
+                <input type="text" inputMode="numeric" className="form-control" id="code" name="code" ref={register} key="code" />
+              </div>
+            ) : (
+              <div className="mb-3">
+                <label htmlFor="recovery_code" className="form-label">Recovery Code</label>
+                <input type="text" className="form-control" id="recovery_code" name="recovery_code" ref={register} key="recovery_code" />
+              </div>
+            )}
+            
+            <div className="d-flex justify-content-end align-items-center">
+              <button type="button" className="btn btn-link link-secondary mr-3" onClick={handleToggleRecovery}>
+                {isRecovery ? "Use an authentication code" : "Use a recovery code"}
+              </button>
+              <button type="submit" className="btn btn-sm btn-dark">
+                Login
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+TwoFactorAuthentication.layout = page => <AppLayout children={page} title="Two Factor Authentication" />
+export default TwoFactorAuthentication;
 ```
 
 #### Browser Sessions

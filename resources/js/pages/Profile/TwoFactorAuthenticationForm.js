@@ -117,22 +117,22 @@ const TwoFactorAuthenticationForm = ({
                   )}
 
                   {recoveryCodes.length > 0 ? (
-                    <ConfirmsPassword onConfirmed={handleRegenerateRecoveryCodes}>
+                    <ConfirmsPassword id="regenerate-recorvery-codes" onConfirmed={handleRegenerateRecoveryCodes}>
                       <button className="btn btn-sm btn-light me-2">Regenerate Recovery Codes</button>
                     </ConfirmsPassword>
                   ) : (
-                    <ConfirmsPassword onConfirmed={handleShowRecoveryCodes}>
+                    <ConfirmsPassword id="show-recorvery-codes" onConfirmed={handleShowRecoveryCodes}>
                       <button className="btn btn-sm btn-light me-2">Show Recovery Codes</button>
                     </ConfirmsPassword>
                   )}
 
-                  <ConfirmsPassword onConfirmed={handleDisableTwoFactorAuthentication}>
+                  <ConfirmsPassword id="disable-two-factor-authentication" onConfirmed={handleDisableTwoFactorAuthentication}>
                     <button className="btn btn-sm btn-danger">Disable</button>
                   </ConfirmsPassword>
                 </>
               ) : (
                 <>
-                  <ConfirmsPassword onConfirmed={handleEnableTwoFactorAuthentication}>
+                  <ConfirmsPassword id="enable-two-factor-authentication" onConfirmed={handleEnableTwoFactorAuthentication}>
                     <button className="btn btn-sm btn-dark">Enable</button>
                   </ConfirmsPassword>
                 </>

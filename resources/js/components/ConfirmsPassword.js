@@ -4,6 +4,7 @@ import { useForm } from 'react-hook-form';
 import Modal from '@/components/Modal';
 
 const ConfirmsPassword = ({
+  id,
   children,
   onConfirmed,
 }) => {
@@ -73,13 +74,13 @@ const ConfirmsPassword = ({
         footer={(
           <>
             <button type="button" className="btn btn-sm btn-secondary" onClick={handleActive(false)}>Nevermind</button>
-            <button type="submit" className="btn btn-sm btn-primary" form="confirms-password-form">Confirm</button>
+            <button type="submit" className="btn btn-sm btn-primary" form={`${id}-confirms-password-form`}>Confirm</button>
           </>
         )}
       >
         <>
           <div>For your security, please confirm your password to continue.</div>
-          <form id="confirms-password-form" onSubmit={handleSubmit(submit)} noValidate="">
+          <form id={`${id}-confirms-password-form`} onSubmit={handleSubmit(submit)} noValidate="">
             <div className="mb-3">
               <label htmlFor="password" className={['form-label', errors.password ? 'is-invalid' : ''].join(' ')}>New Password</label>
               <input type="password" className="form-control" id="password" name="password" ref={register} />
