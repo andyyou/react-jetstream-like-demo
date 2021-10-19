@@ -62,7 +62,7 @@ const TeamMembersForm = ({
       <div className="col-4">
         <h5>Team Members</h5>
         <p>
-          All of the people that are part of this team. 
+          All of the people that are part of this team.
         </p>
       </div>
       <div className="col-8">
@@ -94,7 +94,7 @@ const TeamMembersForm = ({
               )}
             >
               <form id="update-team-member-form" onSubmit={handleSubmit(submit)}>
-                <input type="hidden" name="member" ref={register} />
+                <input type="hidden" {...register('member')} />
                 <div className="mb-3">
                   <ul className={['list-group', errors.role ? 'is-invalid' : ''].join(' ')}>
                     {availableRoles.map((role) => (
@@ -111,13 +111,12 @@ const TeamMembersForm = ({
                           <input
                             className="d-none"
                             type="radio"
-                            name="role"
                             id={`team-members-form-${role.key}`}
                             value={role.key}
-                            ref={register}
+                            {...register('role')}
                           />
                         </div>
-                        
+
                         <div className={[watchRole === role.key ? 'text-white-50' : 'text-black-50']}>
                           {role.description}
                         </div>

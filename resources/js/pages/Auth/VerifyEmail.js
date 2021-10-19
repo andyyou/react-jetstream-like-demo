@@ -37,7 +37,7 @@ const VerifyEmail = () => {
           {status === 'verification-link-sent' && (
             <div className="alert alert-success alert-dismissible fade show" role="alert">
               A new verification link has been sent to the email.
-              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              <button type="button" className="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
           )}
 
@@ -49,7 +49,7 @@ const VerifyEmail = () => {
             <button type="button" className="btn btn-sm btn-dark" onClick={handleResendVerification}>
               Resend Verification Email
             </button>
-            
+
             <button type="button" className="btn btn-sm btn-link link-secondary" onClick={handleLogout}>
               Logout
             </button>

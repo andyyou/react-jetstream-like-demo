@@ -40,7 +40,7 @@ const UpdateProfileInformationForm = ({
             >
               <div className="mb-3">
                 <label htmlFor="name" className={['form-label', errors.name ? 'is-invalid' : ''].join(' ')}>Name</label>
-                <input type="text" className="form-control" id="name" name="name" defaultValue={user.name} ref={register} />
+                <input type="text" className="form-control" id="name" defaultValue={user.name} {...register('name')} />
                 {(errors.name) && (
                   <div className="invalid-feedback">
                     {errors.name}
@@ -50,7 +50,7 @@ const UpdateProfileInformationForm = ({
 
               <div className="mb-3">
                 <label htmlFor="email" className={['form-label', errors.email ? 'is-invalid' : ''].join(' ')}>Email</label>
-                <input type="text" className="form-control" id="email" name="email" defaultValue={user.email} ref={register} />
+                <input type="text" className="form-control" id="email" defaultValue={user.email} {...register('email')} />
                 {(errors.email) && (
                   <div className="invalid-feedback">
                     {errors.email}
@@ -65,7 +65,7 @@ const UpdateProfileInformationForm = ({
                 <span className="me-3">Saved!</span>
               </FlashMessage>
             )}
-            
+
             <button type="submit" form="update-profile-information-form" className="btn btn-sm btn-dark">
               Save
             </button>

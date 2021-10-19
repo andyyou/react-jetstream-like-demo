@@ -56,7 +56,7 @@ const Create = () => {
 
                 <div className="mb-3">
                   <label htmlFor="name" className={['form-label', errors.createTeam && errors.createTeam.name ? 'is-invalid' : ''].join(' ')}>Team Name</label>
-                  <input type="text" className="form-control" id="name" name="name" defaultValue={old.name} ref={register} />
+                  <input type="text" className="form-control" id="name" defaultValue={old.name} {...register('name')} />
                   {(errors.createTeam && errors.createTeam.name) && (
                     <div className="invalid-feedback">
                       {errors.createTeam.name}

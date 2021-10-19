@@ -46,7 +46,7 @@ const ForgotPassword = () => {
               <button type="button" className="btn-close" data-dismiss="alert" aria-label="Close"></button>
             </div>
           )}
-          
+
           <p>
             Forgot your password? No problem. Just let us know your email address and we will email you a password reset link that will allow you to choose a new one.
           </p>
@@ -54,7 +54,7 @@ const ForgotPassword = () => {
           <form onSubmit={handleSubmit(submit)} noValidate="">
             <div className="mb-3">
               <label htmlFor="email" className={['form-label', errors['email'] ? 'is-invalid' : ''].join(' ')}>Email</label>
-              <input type="text" className="form-control" id="email" name="email" defaultValue={old.email} ref={register} />
+              <input type="text" className="form-control" id="email" defaultValue={old.email} {...register('email')} />
               {errors['email'] && (
                 <div className="invalid-feedback">
                   {errors['email']}

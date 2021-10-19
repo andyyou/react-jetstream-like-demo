@@ -47,15 +47,15 @@ const TwoFactorAuthentication = () => {
             {!isRecovery ? (
               <div className="mb-3">
                 <label htmlFor="code" className="form-label">Code</label>
-                <input type="text" inputMode="numeric" className="form-control" id="code" name="code" ref={register} key="code" />
+                <input type="text" inputMode="numeric" className="form-control" id="code" {...register('code')} key="code" />
               </div>
             ) : (
               <div className="mb-3">
                 <label htmlFor="recovery_code" className="form-label">Recovery Code</label>
-                <input type="text" className="form-control" id="recovery_code" name="recovery_code" ref={register} key="recovery_code" />
+                <input type="text" className="form-control" id="recovery_code" {...register('recovery_code')} key="recovery_code" />
               </div>
             )}
-            
+
             <div className="d-flex justify-content-end align-items-center">
               <button type="button" className="btn btn-link link-secondary mr-3" onClick={handleToggleRecovery}>
                 {isRecovery ? "Use an authentication code" : "Use a recovery code"}

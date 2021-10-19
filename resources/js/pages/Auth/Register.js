@@ -42,7 +42,7 @@ const Register = () => {
           <form onSubmit={handleSubmit(submit)} noValidate="">
             <div className="mb-3">
               <label htmlFor="name" className={['form-label', errors['name'] ? 'is-invalid' : ''].join(' ')}>Name</label>
-              <input type="text" className="form-control" id="name" name="name" defaultValue={old.name} ref={register} />
+              <input type="text" className="form-control" defaultValue={old.name} {...register('name')} />
               {errors['name'] && (
                 <div className="invalid-feedback">
                   {errors['name']}
@@ -52,7 +52,7 @@ const Register = () => {
 
             <div className="mb-3">
               <label htmlFor="email" className={['form-label', errors['email'] ? 'is-invalid' : ''].join(' ')}>Email</label>
-              <input type="text" className="form-control" id="email" name="email" defaultValue={old.value} ref={register} />
+              <input type="text" className="form-control" id="email" defaultValue={old.value} {...register('email')} />
               {errors['email'] && (
                 <div className="invalid-feedback">
                   {errors['email']}
@@ -62,7 +62,7 @@ const Register = () => {
 
             <div className="mb-3">
               <label htmlFor="password" className={['form-label', errors['password'] ? 'is-invalid' : ''].join(' ')}>Password</label>
-              <input type="password" className="form-control" id="password" name="password" defaultValue={old.password} ref={register} />
+              <input type="password" className="form-control" id="password" defaultValue={old.password} {...register('password')} />
               {errors['password'] && (
                 <div className="invalid-feedback">
                   {errors['password']}
@@ -72,14 +72,14 @@ const Register = () => {
 
             <div className="mb-3">
               <label htmlFor="password_confirmation" className={['form-label', errors['password_confirmation'] ? 'is-invalid' : ''].join(' ')}>Password Confirmation</label>
-              <input type="password" className="form-control" id="password_confirmation" name="password_confirmation" defaultValue={old.password_confirmation} ref={register} />
+              <input type="password" className="form-control" id="password_confirmation" defaultValue={old.password_confirmation} {...register('password_confirmation')} />
               {errors['password_confirmation'] && (
                 <div className="invalid-feedback">
                   {errors['password_confirmation']}
                 </div>
               )}
             </div>
-            
+
             <div className="d-flex justify-content-end align-items-center">
               <InertiaLink href={route('login')} className="link-secondary me-3">
                 Already have account?

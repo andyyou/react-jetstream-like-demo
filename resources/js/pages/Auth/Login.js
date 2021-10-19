@@ -23,7 +23,7 @@ const Login = () => {
     register,
     handleSubmit,
   } = useForm();
-  
+
   const submit = (data) => {
     Inertia.post(route('login'), {
       ...data,
@@ -43,7 +43,7 @@ const Login = () => {
             <form onSubmit={handleSubmit(submit)} noValidate="">
               <div className="mb-3">
                 <label htmlFor="email" className={['form-label', errors['email'] ? 'is-invalid' : ''].join(' ')}>Email</label>
-                <input type="text" className="form-control" id="email" name="email" defaultValue={old.email} ref={register} />
+                <input type="text" className="form-control" id="email" defaultValue={old.email} {...register('email')} />
                 {errors['email'] && (
                   <div className="invalid-feedback">
                     {errors['email']}
@@ -53,7 +53,7 @@ const Login = () => {
 
               <div className="mb-3">
                 <label htmlFor="password" className={['form-label', errors['password'] ? 'is-invalid' : ''].join(' ')}>Password</label>
-                <input type="password" className="form-control" id="password" name="password" ref={register} />
+                <input type="password" id="password" className="form-control" {...register('password')} />
                 {errors['password'] && (
                   <div className="invalid-feedback">
                     {errors['password']}
@@ -62,7 +62,7 @@ const Login = () => {
               </div>
 
               <div className="mb-3 form-check">
-                <input type="checkbox" className="form-check-input" id="remember_me" name="remember_me" defaultChecked={old.remember_me} ref={register} />
+                <input type="checkbox" className="form-check-input" id="remember_me" defaultChecked={old.remember_me} {...register('remember_me')} />
                 <label className="form-check-label" htmlFor="remember_me">Remember Me</label>
               </div>
 

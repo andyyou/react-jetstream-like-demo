@@ -43,7 +43,7 @@ const UpdateTeamNameForm = ({
 
               <div className="mb-3">
                 <label htmlFor="name" className={['form-label', errors.name ? 'is-invalid' : ''].join(' ')}>Team Name</label>
-                <input type="text" className="form-control" id="name" name="name" defaultValue={team.name} ref={register} />
+                <input type="text" className="form-control" id="name" defaultValue={team.name} {...register('name')} />
                 {errors.name && (
                   <div className="invalid-feedback">
                     {errors.name}

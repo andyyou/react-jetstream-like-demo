@@ -47,7 +47,7 @@ const DeleteAccountForm = ({
         <div className="card">
           <div className="card-body">
             <div className="mb-3">
-              Once your account is deleted, all of its resources and data will be permanently deleted. Before deleting your account, please download any data or information that you wish to retain. 
+              Once your account is deleted, all of its resources and data will be permanently deleted. Before deleting your account, please download any data or information that you wish to retain.
             </div>
             <Modal
               isActive={isConfirmingUserDeletion}
@@ -69,18 +69,17 @@ const DeleteAccountForm = ({
                 Are you sure you want to delete your account? Once your account is deleted, all of its resources and data will be permanently deleted. Please enter your password to confirm you would like to permanently delete your account.
                 </div>
                 <div className="mb-3">
-                  <label 
+                  <label
                     htmlFor="password"
                     className={['form-label', errors.password ? 'is-invalid' : ''].join(' ')}
                   >
                     Password
                   </label>
-                  <input 
+                  <input
                     type="password"
-                    className="form-control" 
-                    id="password" 
-                    name="password" 
-                    ref={register}
+                    className="form-control"
+                    id="password"
+                    {...register('password')}
                   />
                   {errors.password && (
                     <div className="invalid-feedback">

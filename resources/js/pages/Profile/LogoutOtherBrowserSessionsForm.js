@@ -104,18 +104,17 @@ const LogoutOtherBrowserSessionsForm = ({
                   Please enter your password to confirm you would like to logout of your other browser sessions across all of your devices.
                 </div>
                 <div className="mb-3">
-                  <label 
+                  <label
                     htmlFor="password"
                     className={['form-label', errors.password ? 'is-invalid' : ''].join(' ')}
                   >
                     Password
                   </label>
-                  <input 
+                  <input
                     type="password"
-                    className="form-control" 
-                    id="password" 
-                    name="password" 
-                    ref={register}
+                    className="form-control"
+                    id="password"
+                    {...register('password')}
                   />
                   {errors.password && (
                     <div className="invalid-feedback">

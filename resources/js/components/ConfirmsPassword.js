@@ -32,7 +32,7 @@ const ConfirmsPassword = ({
     register,
     handleSubmit,
     setError,
-    errors,
+    errors = {},
   } = useForm();
 
   const submit = (data) => {
@@ -83,7 +83,7 @@ const ConfirmsPassword = ({
           <form id={`${id}-confirms-password-form`} onSubmit={handleSubmit(submit)} noValidate="">
             <div className="mb-3">
               <label htmlFor="password" className={['form-label', errors.password ? 'is-invalid' : ''].join(' ')}>New Password</label>
-              <input type="password" className="form-control" id="password" name="password" ref={register} />
+              <input type="password" className="form-control" id="password" {...register('password')} />
               {errors.password && (
                 <div className="invalid-feedback">
                   {errors.password.message}

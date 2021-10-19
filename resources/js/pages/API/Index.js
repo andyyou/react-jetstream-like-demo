@@ -213,7 +213,7 @@ const Index = () => {
                 <form id="create-api-token" onSubmit={handleCreateApiTokenSubmit(onCreateApiToken)} noValidate="">
                   <div className="mb-3">
                     <label htmlFor="name" className={['form-label', errors['createApiToken'] && errors['createApiToken']['name'] ? 'is-invalid' : ''].join(' ')}>Name</label>
-                    <input type="text" className="form-control" id="name" name="name" ref={createApiTokenRegister} />
+                    <input type="text" className="form-control" {...createApiTokenRegister('name')} />
                     {(errors['createApiToken'] && errors['createApiToken']['name']) && (
                       <div className="invalid-feedback">
                         {errors['createApiToken']['name']}
@@ -228,10 +228,9 @@ const Index = () => {
                           <input
                             type="checkbox"
                             className="form-check-input"
-                            name="permissions"
                             id={`available-permission-${permission}`}
                             value={permission}
-                            ref={createApiTokenRegister}
+                            {...createApiTokenRegister('permissions')}
                           />
                           <label className="form-check-label" htmlFor={`available-permission-${permission}`}>
                             {permission.charAt(0).toUpperCase() + permission.slice(1)}
@@ -241,7 +240,7 @@ const Index = () => {
                     </div>
 
                     {/* API Token Modal */}
-                    <Modal 
+                    <Modal
                       isActive={isDisplayingToken}
                       head={(
                         <>
@@ -257,7 +256,7 @@ const Index = () => {
                     >
                       <>
                         <div className="mb-3">
-                          Please copy your new API token. For your security, it won't be shown again. 
+                          Please copy your new API token. For your security, it won't be shown again.
                         </div>
                         <div className="bg-light p-2 rounded">
                           {_session._flash.token}
@@ -275,7 +274,7 @@ const Index = () => {
                     <span className="me-3">Created!</span>
                   </FlashMessage>
                 )}
-                
+
                 <button type="submit" form="create-api-token" className="btn btn-sm btn-dark">
                   Create
                 </button>
@@ -296,7 +295,7 @@ const Index = () => {
             <div className="col-8">
               <div className="card">
                 <div className="card-body">
-                  <Modal 
+                  <Modal
                     isActive={isEditingToken}
                     head={(
                       <>
@@ -312,16 +311,15 @@ const Index = () => {
                     )}
                   >
                     <form id="update-api-token-form" onSubmit={handleUpdateApiTokenSubmit(onUpdateApiToken)} noValidate="">
-                      <input type="hidden" name="token_id" ref={updateApiTokenRegister} />
+                      <input type="hidden" {...updateApiTokenRegister('token_id')} />
                       {availablePermissions.map((permission) => (
                         <div className="form-check form-check-inline" key={`update-api-token-${permission}`}>
                           <input
                             className="form-check-input"
                             type="checkbox"
-                            name="permissions"
                             id={`update-api-token-${permission}`}
                             value={permission}
-                            ref={updateApiTokenRegister}
+                            {...updateApiTokenRegister('permissions')}
                           />
                           <label className="form-check-label" htmlFor={`update-api-token-${permission}`}>
                             {permission.charAt(0).toUpperCase() + permission.slice(1)}
@@ -331,7 +329,7 @@ const Index = () => {
                     </form>
                   </Modal>
 
-                  <Modal 
+                  <Modal
                     isActive={willDeleteToken && isDeletingToken}
                     head={(
                       <>
@@ -347,10 +345,10 @@ const Index = () => {
                     )}
                   >
                     <div>
-                      Are you sure you would like to delete this API ({willDeleteToken && willDeleteToken.name}) token? 
+                      Are you sure you would like to delete this API ({willDeleteToken && willDeleteToken.name}) token?
                     </div>
                   </Modal>
-                  
+
                   {/* Token List */}
                   {[...tokens].sort((a, b) => new Date(b.created_at) - new Date(a.created_at)).map((token) => (
                     <div className="d-flex justify-content-between py-2" key={token.id}>
@@ -378,7 +376,7 @@ const Index = () => {
             </div>
           </div>
         )}
-        
+
       </div>
     </>
   );

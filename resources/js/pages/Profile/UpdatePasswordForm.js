@@ -34,8 +34,8 @@ const UpdatePasswordForm = ({
           <div className="card-body">
             <form id="update-password-form" onSubmit={handleSubmit(submit)} noValidate="">
               <div className="mb-3">
-                <label htmlFor="current-password" className={['form-label', errors.current_password ? 'is-invalid' : ''].join(' ')}>Current Password</label>
-                <input type="password" className="form-control" id="current-password" name="current_password" ref={register} />
+                <label htmlFor="current_password" className={['form-label', errors.current_password ? 'is-invalid' : ''].join(' ')}>Current Password</label>
+                <input type="password" className="form-control" id="current_password" {...register('current_password')} />
                 {errors.current_password && (
                   <div className="invalid-feedback">
                     {errors.current_password}
@@ -44,7 +44,7 @@ const UpdatePasswordForm = ({
               </div>
               <div className="mb-3">
                 <label htmlFor="password" className={['form-label', errors.password ? 'is-invalid' : ''].join(' ')}>New Password</label>
-                <input type="password" className="form-control" id="password" name="password" ref={register} />
+                <input type="password" className="form-control" id="password" {...register('password')} />
                 {errors.password && (
                   <div className="invalid-feedback">
                     {errors.password}
@@ -52,8 +52,8 @@ const UpdatePasswordForm = ({
                 )}
               </div>
               <div className="mb-3">
-                <label htmlFor="password-confirmation" className={['form-label', errors.password_confirmation ? 'is-invalid' : ''].join(' ')}>Confirm Password</label>
-                <input type="password" className="form-control" id="password-confirmation" name="password_confirmation" ref={register} />
+                <label htmlFor="password_confirmation" className={['form-label', errors.password_confirmation ? 'is-invalid' : ''].join(' ')}>Confirm Password</label>
+                <input type="password" className="form-control" id="password_confirmation" {...register('password_confirmation')} />
                 {errors.password_confirmation && (
                   <div className="invalid-feedback">
                     {errors.password_confirmation}
@@ -68,7 +68,7 @@ const UpdatePasswordForm = ({
                 <span className="me-3">Saved!</span>
               </FlashMessage>
             )}
-            
+
             <button type="submit" form="update-password-form" className="btn btn-sm btn-dark">
               Save
             </button>

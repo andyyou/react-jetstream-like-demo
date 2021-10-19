@@ -18,7 +18,7 @@ const AddTeamMemberForm = ({
   } = useForm();
 
   const watchRole = watch('role');
-  
+
   const submit = (data) => {
     Inertia.post(route('team-members.store', team), {
       ...data
@@ -32,7 +32,7 @@ const AddTeamMemberForm = ({
       <div className="col-4">
         <h5>Add Team Member</h5>
         <p>
-          Add a new team member to your team, allowing them to collaborate with you. 
+          Add a new team member to your team, allowing them to collaborate with you.
         </p>
       </div>
       <div className="col-8">
@@ -44,7 +44,7 @@ const AddTeamMemberForm = ({
             <form id="add-team-member-form" onSubmit={handleSubmit(submit)}>
               <div className="mb-3">
                 <label htmlFor="email" className={['form-label', errors.email ? 'is-invalid' : ''].join(' ')}>Email</label>
-                <input type="text" className="form-control" id="email" name="email" defaultValue={old.email} ref={register} />
+                <input type="text" className="form-control" id="email" defaultValue={old.email} {...register('email')} />
                 {errors.email && (
                   <div className="invalid-feedback">
                     {errors.email}
@@ -68,17 +68,16 @@ const AddTeamMemberForm = ({
                         <input
                           className="d-none"
                           type="radio"
-                          name="role"
                           id={role.key}
                           value={role.key}
-                          ref={register}
+                          {...register('role')}
                         />
                       </div>
-                      
+
                       <div className={[watchRole === role.key ? 'text-white-50' : 'text-black-50']}>
                         {role.description}
                       </div>
-                    </label> 
+                    </label>
                   ))}
                 </ul>
                 {errors.role && (
