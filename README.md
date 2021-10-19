@@ -513,6 +513,8 @@ public function share(Request $request)
 
 ### Authentication Views for FortifyServiceProvider
 
+> WARNING: Beause `react-hook-form v7+`'s `register` API is changed. If you want to use v7+ plase change `ref` to `{...register('field')}`. The repo provide another branch `react-hook-form-v7` which you can reference the codebase. ![#1](https://github.com/andyyou/react-jetstream-like-demo/issues/1)
+
 Now we can complete features such as login, register, forgot password, reset password etc.
 
 Create folders and components
